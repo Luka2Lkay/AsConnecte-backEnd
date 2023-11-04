@@ -75,4 +75,14 @@ const getAllResellers = async (req, res) => {
       }
 }
 
-module.exports = {signUp, signin, getAllResellers}
+const updatePassword = async (req, res) => {
+    try {
+        await Reseller.findByIdAndUpdate(req.params.id, req.body);
+    
+        res.status(201).json("Changes made successfully");
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+}
+
+module.exports = {signUp, signin, getAllResellers, updatePassword}
