@@ -7,7 +7,7 @@ const resellerRouter = require('./src/routes/reseller_routes.js');
 const { db } = require("./src/config/db_config");
 
 const app = express();
-
+app.use(cors())
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, x-access-token');
@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors())
+
 
 mongoose.connect(db.mongoUrl)
   .then(() => {

@@ -48,7 +48,7 @@ const signin = async (req, res) => {
     const isPasswordMatch = await bcrypt.compare(password, reseller.password);
 
     if (!isPasswordMatch) {
-      return res.status(401).json({message: "passwords don't match!"});
+      return res.status(401).json({ message: "passwords don't match!" });
     }
 
     const token = jwt.sign(
@@ -82,14 +82,14 @@ const getAllResellers = async (req, res) => {
 };
 
 const updatePassword = async (req, res) => {
-  const { password } = req.body;
-const {id} = req.params
+  const { newPassword } = req.body;
+  const { id } = req.params;
   const oneReseller = await Reseller.findById(id);
 
   try {
-    await Reseller.findByIdAndUpdate(id, password);
-    const newPassword = bcrypt.hashSync(password, 10);
-    oneReseller.password = newPassword;
+    await Reseller.findByIdAndUpdate(id, newPassword);
+    const hashedPassword = bcrypt.hashSync(newPassword, 10);
+    oneReseller.password = hashedPassword;
     oneReseller.save();
     res.status(201).json("Password changed successfully!");
   } catch (error) {
