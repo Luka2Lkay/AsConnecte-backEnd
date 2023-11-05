@@ -99,7 +99,7 @@ const updatePassword = async (req, res) => {
 
 const deleteResellers = async (req, res) => {
   try {
-    const resellers = await Reseller.deleteMany();
+    await Reseller.deleteMany();
 
     res.status(200).json({ message: "Deleted all users!" });
   } catch (error) {
