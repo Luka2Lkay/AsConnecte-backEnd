@@ -6,7 +6,7 @@ const resellerSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true, unique: true },
   confirmPassword: { type: String, required: true, unique: true },
-  wifiDetails: [{}]
+  wifiDetails: [{type: mongoose.Types.ObjectId, ref: "ifiDetails"}]
 });
 
 resellerSchema.plugin(uniqueValidator);

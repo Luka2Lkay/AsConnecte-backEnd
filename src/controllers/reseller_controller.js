@@ -65,6 +65,7 @@ const signin = async (req, res) => {
       username: reseller.username,
       email: email,
       userId: reseller._id,
+      wifiDetails: reseller.w
     });
   } catch (err) {
     res.status(401).json({ message: err.message });
