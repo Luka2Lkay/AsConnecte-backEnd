@@ -65,7 +65,9 @@ const signin = async (req, res) => {
       username: reseller.username,
       email: email,
       userId: reseller._id,
-      wifiDetails: reseller.wifiDetails
+      password: reseller.password,
+      unHashedPassword: password,
+      wifiDetails: reseller.wifiDetails,
     });
   } catch (err) {
     res.status(401).json({ message: err.message });
@@ -83,9 +85,14 @@ const getAllResellers = async (req, res) => {
 };
 
 const updatePassword = async (req, res) => {
-  const { newPassword } = req.body;
+  const { newPassword, oldPassword } = req.body;
   const { id } = req.params;
   const oneReseller = await Reseller.findById(id);
+
+  if (!(await bcrypt.compare(oldPassword, oneReseller.password))) {
+    res.status(500).json({ message: "Passwords don't match" });
+    return;
+  }
 
   try {
     await Reseller.findByIdAndUpdate(id, newPassword);

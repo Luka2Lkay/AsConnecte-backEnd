@@ -12,7 +12,7 @@ const { verify } = require("../middlewares/verify");
 router.post("/signup", signUp);
 router.post("/signin", signin);
 router.get("/all-resellers", getAllResellers);
-router.put("/change-password/:id", updatePassword);
+router.put("/change-password/:id", verify, updatePassword);
 router.delete("/delete-resellers", deleteResellers);
 
 module.exports = router;
