@@ -49,4 +49,25 @@ const deleteAllDetails = async (req, res) => {
   }
 };
 
-module.exports = { addWifiInfo, getAllWifiDetails, deleteAllDetails };
+const deleteOneWifiDetail = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const wifiInfo = await WifiDetails.findByIdAndDelete(id);
+    const loggedInUser = await Reseller.findById(req.userId);
+    await loggedInUser.wifiDetails.pull(wifiInfo);
+    await loggedInUser.save();
+
+    res
+      .status(200)
+      .json({ message: "You have successfully deleted a wifi info" });
+  } catch (error) {
+    res.status(401).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  addWifiInfo,
+  getAllWifiDetails,
+  deleteAllDetails,
+  deleteOneWifiDetail,
+};
