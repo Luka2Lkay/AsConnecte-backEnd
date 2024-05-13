@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const db = {
-  mongoUrl: "mongodb+srv://bonginkosimawila061:RHSHoPAvGIsRDBis@cluster0.q8dvtpd.mongodb.net/",
+  mongoUrl: process.env.CONNECTION_STRING,
 };
 
 module.exports = { db };
