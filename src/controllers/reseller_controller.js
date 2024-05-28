@@ -42,34 +42,34 @@ const signin = async (req, res) => {
     const reseller = await Reseller.findOne({ email });
 
     res.status(200).json({message: reseller})
-    // if (!reseller) {
-    //   return res.status(401).json({ message: "User not found" });
-    // }
+    if (!reseller) {
+      return res.status(401).json({ message: "User not found" });
+    }
 
-    // const isPasswordMatch = await bcrypt.compare(password, reseller.password);
+    const isPasswordMatch = await bcrypt.compare(password, reseller.password);
 
-    // if (!isPasswordMatch) {
-    //   return res.status(401).json({ message: "passwords don't match!" });
-    // }
+    if (!isPasswordMatch) {
+      return res.status(401).json({ message: "passwords don't match!" });
+    }
 
-    // const token = jwt.sign(
-    //   { userId: reseller._id, username: reseller.username },
-    //   secretKey.secret,
-    //   {
-    //     expiresIn: "1h",
-    //   }
-    // );
+    const token = jwt.sign(
+      { userId: reseller._id, username: reseller.username },
+      secretKey.secret,
+      {
+        expiresIn: "1h",
+      }
+    );
 
-    // res.status(200).json({
-    //   token: token,
-    //   expiresIn: 3600,
-    //   username: reseller.username,
-    //   email,
-    //   userId: reseller._id,
-    //   password: reseller.password,
-    //   unHashedPassword: password,
-    //   wifiDetails: reseller.wifiDetails,
-    // });
+    res.status(200).json({
+      token: token,
+      expiresIn: 3600,
+      username: reseller.username,
+      email,
+      userId: reseller._id,
+      password: reseller.password,
+      unHashedPassword: password,
+      wifiDetails: reseller.wifiDetails,
+    });
   } catch (err) {
     res.status(401).json({ message: err.message });
   }
