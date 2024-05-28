@@ -63,7 +63,7 @@ const signin = async (req, res) => {
       token: token,
       expiresIn: 3600,
       username: reseller.username,
-      email: email,
+      email,
       userId: reseller._id,
       password: reseller.password,
       unHashedPassword: password,

@@ -31,6 +31,10 @@ mongoose.connect(db.mongoUrl)
     console.log("Oops! Connection access denied!", error);
   });
 
+  app.get("/" ,(req ,res) =>{
+    res.send("The Api is running!")
+})
+
 app.use('/reseller', resellerRouter);
 app.use('/wifi-info', wifiDetailsRouter);
 
