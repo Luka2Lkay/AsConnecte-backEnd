@@ -75,15 +75,13 @@ const signin = async (req, res) => {
 };
 
 const getAllResellers = async (req, res) => {
-  // try {
-  //   const resellers = await Reseller.find();
+  try {
+    const resellers = await Reseller.find();
 
-  //   res.status(200).json(resellers);
-  // } catch (error) {
-  //   res.status(401).json({ message: error.message });
-  // }
-
-  res.status(200).json({"message": "Hello"})
+    res.status(200).json(resellers);
+  } catch (error) {
+    res.status(401).json({ message: error.message });
+  }
 };
 
 const updatePassword = async (req, res) => {
